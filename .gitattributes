@@ -1,0 +1,34 @@
+* binary
+
+*.bas        working-tree-encoding=CP1252 text eol=crlf linguist-language=vb6
+*.cls        working-tree-encoding=CP1252 text eol=crlf linguist-language=vb6
+*.ctl        working-tree-encoding=CP1252 text eol=crlf linguist-language=vb6
+*.dob        working-tree-encoding=CP1252 text eol=crlf linguist-language=vb6
+*.dsr        working-tree-encoding=CP1252 text eol=crlf linguist-language=vb6
+*.frm        working-tree-encoding=CP1252 text eol=crlf linguist-language=vb6
+*.pag        working-tree-encoding=CP1252 text eol=crlf linguist-language=vb6
+*.vbg        working-tree-encoding=CP1252 text eol=crlf
+*.vbl        working-tree-encoding=CP1252 text eol=crlf
+*.vbp        working-tree-encoding=CP1252 text eol=crlf
+*.vbr        working-tree-encoding=CP1252 text eol=crlf
+
+*.asm        text
+*.asp        text
+*.bat        text
+*.c          text
+*.cpp        text
+*.dsp        text
+*.dsw        text
+*.h          text
+*.idl        text
+*.java       text
+*.js         text
+*.manifest   text
+*.odl        text
+*.php        text
+*.php3       text
+*.rc         text
+*.sln        text
+*.sql        text
+*.vb         text
+*.vbs        text

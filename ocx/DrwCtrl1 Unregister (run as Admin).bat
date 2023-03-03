@@ -1,0 +1,1 @@
+RegSvr32.exe "%~dp0DrwCtrl1.ocx" /u
