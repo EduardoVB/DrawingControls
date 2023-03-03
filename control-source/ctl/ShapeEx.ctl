@@ -7,9 +7,9 @@ Begin VB.UserControl ShapeEx
    ClientWidth     =   3840
    ClipBehavior    =   0  'None
    HasDC           =   0   'False
-   ScaleHeight     =   240
+   ScaleHeight     =   192
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   320
+   ScaleWidth      =   256
    ToolboxBitmap   =   "ShapeEx.ctx":0000
    Windowless      =   -1  'True
    Begin VB.Timer tmrPainting 
@@ -412,7 +412,6 @@ Private Sub UserControl_Paint()
     Dim iShift As Long
     Static sTheLastTimeWasExpanded As Boolean
     Dim iAuxExpand As Long
-    Dim iMsgPosted As Boolean
     
     If (mRotationDegrees > 0) Or (mFlipped <> seFlippedNo) Then
         iGMPrev = SetGraphicsMode(UserControl.hDC, GM_ADVANCED)
@@ -514,7 +513,6 @@ Private Sub UserControl_Paint()
             mDrawingOutsideUC = True
             If Not tmrPainting.Enabled Then
                 PostInvalidateMsg
-                iMsgPosted = True
             End If
         End If
     End If
@@ -527,7 +525,7 @@ Private Sub UserControl_Paint()
         ModifyWorldTransform UserControl.hDC, mtx2, MWT_LEFTMULTIPLY
     End If
     
-    If Not iMsgPosted Then Draw
+    Draw
     
     If hRgnExpand <> 0 Then SelectClipRgn UserControl.hDC, hRgn  ' restore original clip region
     If hRgn <> 0 Then DeleteObject hRgn
@@ -1078,8 +1076,8 @@ Private Sub Draw()
             If mTextureBrush <> 0 Then DestroyTextureBrush
         End If
         
-        iUCWidth = UserControl.ScaleWidth - 1
-        iUCHeight = UserControl.ScaleHeight - 1
+        iUCWidth = UserControl.ScaleWidth - 1.51
+        iUCHeight = UserControl.ScaleHeight - 1.51
         
         If mShape = seShapeOval Then
             If iFilled Then
@@ -1149,9 +1147,9 @@ Private Sub Draw()
             End If
         ElseIf mShape = seShapeRoundedSquare Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth
+                iHeight = UserControl.ScaleWidth - 1.51
             Else
-                iHeight = UserControl.ScaleHeight
+                iHeight = UserControl.ScaleHeight - 1.51
             End If
             iRoundSize = iHeight * 0.125
             If iFilled Then
@@ -1164,9 +1162,9 @@ Private Sub Draw()
             ReDim iPts(2)
             
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iEdge = UserControl.ScaleWidth
+                iEdge = UserControl.ScaleWidth - 1.51
             Else
-                iEdge = UserControl.ScaleHeight
+                iEdge = UserControl.ScaleHeight - 1.51
             End If
             
 '            iEdge = iHeight * 2 / 3 ^ 0.5
@@ -1421,9 +1419,9 @@ Private Sub Draw()
             End If
         ElseIf mShape = seShapeRegularPolygon Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth
+                iHeight = UserControl.ScaleWidth - 1.51
             Else
-                iHeight = UserControl.ScaleHeight
+                iHeight = UserControl.ScaleHeight - 1.51
             End If
             
             ReDim iPts(mVertices - 1)
@@ -1446,9 +1444,9 @@ Private Sub Draw()
             End If
         ElseIf (mShape = seShapeStar) Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth
+                iHeight = UserControl.ScaleWidth - 1.51
             Else
-                iHeight = UserControl.ScaleHeight
+                iHeight = UserControl.ScaleHeight - 1.51
             End If
             
             ReDim iPts(mVertices * 2 - 1)
@@ -1490,9 +1488,9 @@ Private Sub Draw()
             End If
         ElseIf (mShape = seShapeJaggedStar) Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth
+                iHeight = UserControl.ScaleWidth - 1.51
             Else
-                iHeight = UserControl.ScaleHeight
+                iHeight = UserControl.ScaleHeight - 1.51
             End If
             
             ReDim iPts(mVertices * 2 - 1)
