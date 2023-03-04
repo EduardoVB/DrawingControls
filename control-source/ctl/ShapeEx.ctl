@@ -1076,8 +1076,8 @@ Private Sub Draw()
             If mTextureBrush <> 0 Then DestroyTextureBrush
         End If
         
-        iUCWidth = UserControl.ScaleWidth - 1.51
-        iUCHeight = UserControl.ScaleHeight - 1.51
+        iUCWidth = UserControl.ScaleWidth - 1
+        iUCHeight = UserControl.ScaleHeight - 1
         
         If mShape = seShapeOval Then
             If iFilled Then
@@ -1096,7 +1096,7 @@ Private Sub Draw()
                 FillEllipse iGraphics, iFillColor, iUCWidth / 2 - iDiameter / 2, iUCHeight / 2 - iDiameter / 2, iDiameter, iDiameter
             End If
             If mBorderStyle <> vbTransparent Then
-                DrawEllipse iGraphics, mBorderColor, mBorderWidth, iUCWidth / 2 - iDiameter / 2, iUCHeight / 2 - iDiameter / 2, iDiameter, iDiameter
+                DrawEllipse iGraphics, mBorderColor, mBorderWidth, iUCWidth / 2 - iDiameter / 2, (iUCHeight / 2 - iDiameter / 2), iDiameter - 0.51, iDiameter - 0.51
             End If
         ElseIf mShape = seShapeSquare Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
@@ -1147,9 +1147,9 @@ Private Sub Draw()
             End If
         ElseIf mShape = seShapeRoundedSquare Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth - 1.51
+                iHeight = iUCWidth
             Else
-                iHeight = UserControl.ScaleHeight - 1.51
+                iHeight = iUCHeight
             End If
             iRoundSize = iHeight * 0.125
             If iFilled Then
@@ -1162,9 +1162,9 @@ Private Sub Draw()
             ReDim iPts(2)
             
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iEdge = UserControl.ScaleWidth - 1.51
+                iEdge = iUCWidth
             Else
-                iEdge = UserControl.ScaleHeight - 1.51
+                iEdge = iUCHeight
             End If
             
 '            iEdge = iHeight * 2 / 3 ^ 0.5
@@ -1419,9 +1419,9 @@ Private Sub Draw()
             End If
         ElseIf mShape = seShapeRegularPolygon Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth - 1.51
+                iHeight = iUCWidth
             Else
-                iHeight = UserControl.ScaleHeight - 1.51
+                iHeight = iUCHeight
             End If
             
             ReDim iPts(mVertices - 1)
@@ -1444,9 +1444,9 @@ Private Sub Draw()
             End If
         ElseIf (mShape = seShapeStar) Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth - 1.51
+                iHeight = iUCWidth
             Else
-                iHeight = UserControl.ScaleHeight - 1.51
+                iHeight = iUCHeight
             End If
             
             ReDim iPts(mVertices * 2 - 1)
@@ -1488,9 +1488,9 @@ Private Sub Draw()
             End If
         ElseIf (mShape = seShapeJaggedStar) Then
             If UserControl.ScaleWidth < UserControl.ScaleHeight Then
-                iHeight = UserControl.ScaleWidth - 1.51
+                iHeight = iUCWidth
             Else
-                iHeight = UserControl.ScaleHeight - 1.51
+                iHeight = iUCHeight
             End If
             
             ReDim iPts(mVertices * 2 - 1)
