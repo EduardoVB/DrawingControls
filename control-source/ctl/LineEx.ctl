@@ -1337,3 +1337,121 @@ Private Sub Unsubclass()
         mSubclassed = False
     End If
 End Sub
+
+' Extender properties and methods
+Public Property Get Name() As String
+    Name = Ambient.DisplayName
+End Property
+
+Public Property Get Tag() As String
+    Tag = Extender.Tag
+End Property
+
+Public Property Let Tag(ByVal Value As String)
+    Extender.Tag = Value
+End Property
+
+Public Property Get Parent() As Object
+    Set Parent = UserControl.Parent
+End Property
+
+Public Property Get Container() As Object
+    Set Container = Extender.Container
+End Property
+
+Public Property Set Container(ByVal Value As Object)
+    Set Extender.Container = Value
+End Property
+
+Public Property Get Left() As Single
+    Left = Extender.Left
+End Property
+
+Public Property Let Left(ByVal Value As Single)
+    Extender.Left = Value
+End Property
+
+Public Property Get Top() As Single
+    Top = Extender.Top
+End Property
+
+Public Property Let Top(ByVal Value As Single)
+    Extender.Top = Value
+End Property
+
+Public Property Get Width() As Single
+    Width = Extender.Width
+End Property
+
+Public Property Let Width(ByVal Value As Single)
+    Extender.Width = Value
+End Property
+
+Public Property Get Height() As Single
+    Height = Extender.Height
+End Property
+
+Public Property Let Height(ByVal Value As Single)
+    Extender.Height = Value
+End Property
+
+Public Property Get Visible() As Boolean
+    Visible = Extender.Visible
+End Property
+
+Public Property Let Visible(ByVal Value As Boolean)
+    Extender.Visible = Value
+End Property
+
+Public Property Get ToolTipText() As String
+    ToolTipText = Extender.ToolTipText
+End Property
+
+Public Property Let ToolTipText(ByVal Value As String)
+    Extender.ToolTipText = Value
+End Property
+
+Public Property Get HelpContextID() As Long
+    HelpContextID = Extender.HelpContextID
+End Property
+
+Public Property Let HelpContextID(ByVal Value As Long)
+    Extender.HelpContextID = Value
+End Property
+
+Public Property Get WhatsThisHelpID() As Long
+    WhatsThisHelpID = Extender.WhatsThisHelpID
+End Property
+
+Public Property Let WhatsThisHelpID(ByVal Value As Long)
+    Extender.WhatsThisHelpID = Value
+End Property
+
+Public Property Get DragIcon() As IPictureDisp
+    Set DragIcon = Extender.DragIcon
+End Property
+
+Public Property Let DragIcon(ByVal Value As IPictureDisp)
+    Extender.DragIcon = Value
+End Property
+
+Public Property Set DragIcon(ByVal Value As IPictureDisp)
+    Set Extender.DragIcon = Value
+End Property
+
+Public Property Get DragMode() As Integer
+    DragMode = Extender.DragMode
+End Property
+
+Public Property Let DragMode(ByVal Value As Integer)
+    Extender.DragMode = Value
+End Property
+
+Public Sub Drag(Optional ByRef Action As Variant)
+    If IsMissing(Action) Then Extender.Drag Else Extender.Drag Action
+End Sub
+
+Public Sub ZOrder(Optional ByRef Position As Variant)
+    If IsMissing(Position) Then Extender.ZOrder Else Extender.ZOrder Position
+End Sub
+
