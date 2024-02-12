@@ -3045,22 +3045,6 @@ Public Property Let ToolTipText(ByVal Value As String)
     Extender.ToolTipText = Value
 End Property
 
-Public Property Get HelpContextID() As Long
-    HelpContextID = Extender.HelpContextID
-End Property
-
-Public Property Let HelpContextID(ByVal Value As Long)
-    Extender.HelpContextID = Value
-End Property
-
-Public Property Get WhatsThisHelpID() As Long
-    WhatsThisHelpID = Extender.WhatsThisHelpID
-End Property
-
-Public Property Let WhatsThisHelpID(ByVal Value As Long)
-    Extender.WhatsThisHelpID = Value
-End Property
-
 Public Property Get DragIcon() As IPictureDisp
     Set DragIcon = Extender.DragIcon
 End Property

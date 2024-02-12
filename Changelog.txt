@@ -1,0 +1,2 @@
+2024-02-12 Bug fix in LineEx control
+2023-03-05 Initial release
