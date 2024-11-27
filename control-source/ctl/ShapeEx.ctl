@@ -28,6 +28,10 @@ Option Explicit
 
 Implements IBSSubclass
 
+Private Declare Function GetDC Lib "user32" (ByVal hWnd As Long) As Long
+Private Declare Function ReleaseDC Lib "user32" (ByVal hWnd As Long, ByVal hDC As Long) As Long
+Private Declare Function GetBkColor Lib "Gdi32" (ByVal hDC As Long) As Long
+
 Private Type POINTAPI
     X As Long
     Y As Long
@@ -54,9 +58,9 @@ Private Type XFORM
     eDy As Single
 End Type
 
-Private Declare Function SetGraphicsMode Lib "gdi32" (ByVal hDC As Long, ByVal iMode As Long) As Long
-Private Declare Function SetWorldTransform Lib "gdi32" (ByVal hDC As Long, lpXform As XFORM) As Long
-Private Declare Function ModifyWorldTransform Lib "gdi32" (ByVal hDC As Long, lpXform As XFORM, ByVal iMode As Long) As Long
+Private Declare Function SetGraphicsMode Lib "Gdi32" (ByVal hDC As Long, ByVal iMode As Long) As Long
+Private Declare Function SetWorldTransform Lib "Gdi32" (ByVal hDC As Long, lpXform As XFORM) As Long
+Private Declare Function ModifyWorldTransform Lib "Gdi32" (ByVal hDC As Long, lpXform As XFORM, ByVal iMode As Long) As Long
 Private Const MWT_IDENTITY = 1
 Private Const MWT_LEFTMULTIPLY = 2
 'Private Const MWT_RIGHTMULTIPLY = 3
@@ -69,11 +73,11 @@ Private Const Pi = 3.14159265358979
 Private Const WM_USER As Long = &H400
 Private Const WM_INVALIDATE As Long = WM_USER + 11 ' custom message
 
-Private Declare Function GetClipRgn Lib "gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
-Private Declare Function GetRgnBox Lib "gdi32" (ByVal hRgn As Long, lpRect As RECT) As Long
-Private Declare Function CreateRectRgn Lib "gdi32" (ByVal x1 As Long, ByVal y1 As Long, ByVal x2 As Long, ByVal y2 As Long) As Long
-Private Declare Function SelectClipRgn Lib "gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
-Private Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Long) As Long
+Private Declare Function GetClipRgn Lib "Gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
+Private Declare Function GetRgnBox Lib "Gdi32" (ByVal hRgn As Long, lpRect As RECT) As Long
+Private Declare Function CreateRectRgn Lib "Gdi32" (ByVal x1 As Long, ByVal y1 As Long, ByVal x2 As Long, ByVal y2 As Long) As Long
+Private Declare Function SelectClipRgn Lib "Gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
+Private Declare Function DeleteObject Lib "Gdi32" (ByVal hObject As Long) As Long
 Private Declare Function InvalidateRectAsNull Lib "user32" Alias "InvalidateRect" (ByVal hWnd As Long, ByVal lpRect As Long, ByVal bErase As Long) As Long
 'Private Declare Function GetUpdateRect Lib "user32" (ByVal hWnd As Long, lpRect As RECT, ByVal bErase As Long) As Long
 Private Declare Function PostMessage Lib "user32" Alias "PostMessageA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
@@ -343,16 +347,37 @@ Private Sub UserControl_DblClick()
 End Sub
 
 Private Sub UserControl_HitTest(X As Single, Y As Single, HitResult As Integer)
-    Dim iColor As Long
-    
     If mUserMode Then
         If mClickable Then
             If mClickMode = seClickControl Then
                 HitResult = vbHitResultHit
             Else
-                TranslateColor UserControl.BackColor, 0, iColor
-                If UserControl.Point(X, Y) <> iColor Then
+                Dim iColor As Long
+                Dim iDC As Long
+                
+                TranslateColor mBorderColor, 0, iColor
+                If UserControl.Point(X, Y) = iColor Then
                     HitResult = vbHitResultHit
+                ElseIf mFillStyle = vbFSSolid Then
+                    TranslateColor mFillColor, 0, iColor
+                    If UserControl.Point(X, Y) = iColor Then
+                        HitResult = vbHitResultHit
+                    End If
+                ElseIf mFillStyle = seFSTexture Then
+                    iDC = GetDC(UserControl.ContainerHwnd)
+                    iColor = GetBkColor(iDC)
+                    ReleaseDC UserControl.ContainerHwnd, iDC
+                    TranslateColor iColor, 0, iColor
+                    If UserControl.Point(X, Y) <> iColor Then
+                        HitResult = vbHitResultHit
+                    End If
+                ElseIf mFillStyle = seFSTransparent Then
+                    If mBackStyle = seOpaque Then
+                        TranslateColor mBackColor, 0, iColor
+                        If UserControl.Point(X, Y) = iColor Then
+                            HitResult = vbHitResultHit
+                        End If
+                    End If
                 End If
             End If
         End If
