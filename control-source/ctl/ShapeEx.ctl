@@ -30,7 +30,7 @@ Implements IBSSubclass
 
 Private Declare Function GetDC Lib "user32" (ByVal hWnd As Long) As Long
 Private Declare Function ReleaseDC Lib "user32" (ByVal hWnd As Long, ByVal hDC As Long) As Long
-Private Declare Function GetBkColor Lib "Gdi32" (ByVal hDC As Long) As Long
+Private Declare Function GetBkColor Lib "gdi32" (ByVal hDC As Long) As Long
 
 Private Type POINTAPI
     X As Long
@@ -58,9 +58,9 @@ Private Type XFORM
     eDy As Single
 End Type
 
-Private Declare Function SetGraphicsMode Lib "Gdi32" (ByVal hDC As Long, ByVal iMode As Long) As Long
-Private Declare Function SetWorldTransform Lib "Gdi32" (ByVal hDC As Long, lpXform As XFORM) As Long
-Private Declare Function ModifyWorldTransform Lib "Gdi32" (ByVal hDC As Long, lpXform As XFORM, ByVal iMode As Long) As Long
+Private Declare Function SetGraphicsMode Lib "gdi32" (ByVal hDC As Long, ByVal iMode As Long) As Long
+Private Declare Function SetWorldTransform Lib "gdi32" (ByVal hDC As Long, lpXform As XFORM) As Long
+Private Declare Function ModifyWorldTransform Lib "gdi32" (ByVal hDC As Long, lpXform As XFORM, ByVal iMode As Long) As Long
 Private Const MWT_IDENTITY = 1
 Private Const MWT_LEFTMULTIPLY = 2
 'Private Const MWT_RIGHTMULTIPLY = 3
@@ -73,11 +73,11 @@ Private Const Pi = 3.14159265358979
 Private Const WM_USER As Long = &H400
 Private Const WM_INVALIDATE As Long = WM_USER + 11 ' custom message
 
-Private Declare Function GetClipRgn Lib "Gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
-Private Declare Function GetRgnBox Lib "Gdi32" (ByVal hRgn As Long, lpRect As RECT) As Long
-Private Declare Function CreateRectRgn Lib "Gdi32" (ByVal x1 As Long, ByVal y1 As Long, ByVal x2 As Long, ByVal y2 As Long) As Long
-Private Declare Function SelectClipRgn Lib "Gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
-Private Declare Function DeleteObject Lib "Gdi32" (ByVal hObject As Long) As Long
+Private Declare Function GetClipRgn Lib "gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
+Private Declare Function GetRgnBox Lib "gdi32" (ByVal hRgn As Long, lpRect As RECT) As Long
+Private Declare Function CreateRectRgn Lib "gdi32" (ByVal x1 As Long, ByVal y1 As Long, ByVal x2 As Long, ByVal y2 As Long) As Long
+Private Declare Function SelectClipRgn Lib "gdi32" (ByVal hDC As Long, ByVal hRgn As Long) As Long
+Private Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Long) As Long
 Private Declare Function InvalidateRectAsNull Lib "user32" Alias "InvalidateRect" (ByVal hWnd As Long, ByVal lpRect As Long, ByVal bErase As Long) As Long
 'Private Declare Function GetUpdateRect Lib "user32" (ByVal hWnd As Long, lpRect As RECT, ByVal bErase As Long) As Long
 Private Declare Function PostMessage Lib "user32" Alias "PostMessageA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
@@ -248,8 +248,9 @@ Public Enum SESubclassingConstants
 End Enum
 
 Public Enum SEClickModeConstants
-    seClickControl = 0
+    seClickDisabled = 0
     seClickShape = 1
+    seClickControl = 2
 End Enum
 
 ' Property defaults
@@ -261,7 +262,6 @@ Private Const mdef_FillColor = vbBlack
 Private Const mdef_FillStyle = vbFSTransparent
 Private Const mdef_BorderStyle = vbBSSolid
 Private Const mdef_BorderWidth = 1
-Private Const mdef_Clickable = True
 Private Const mdef_Quality = seQualityHigh
 Private Const mdef_RotationDegrees = 0
 Private Const mdef_Opacity = 100
@@ -284,7 +284,6 @@ Private mFillColor As Long
 Private mFillStyle  As Long
 Private mBorderStyle  As BorderStyleConstants
 Private mBorderWidth  As Integer
-Private mClickable As Boolean
 Private mQuality As SEQualityConstants
 Private mRotationDegrees As Single
 Private mOpacity As Single
@@ -348,7 +347,7 @@ End Sub
 
 Private Sub UserControl_HitTest(X As Single, Y As Single, HitResult As Integer)
     If mUserMode Then
-        If mClickable Then
+        If mClickMode <> seClickDisabled Then
             If mClickMode = seClickControl Then
                 HitResult = vbHitResultHit
             Else
@@ -395,7 +394,6 @@ Private Sub UserControl_InitProperties()
     mFillStyle = mdef_FillStyle
     mBorderStyle = mdef_BorderStyle
     mBorderWidth = mdef_BorderWidth
-    mClickable = mdef_Clickable
     mQuality = mdef_Quality
     mRotationDegrees = mdef_RotationDegrees
     mOpacity = mdef_Opacity
@@ -419,7 +417,7 @@ Private Sub UserControl_InitProperties()
 End Sub
 
 Private Sub UserControl_KeyPress(KeyAscii As Integer)
-    If mClickable Then
+    If mClickMode <> seClickDisabled Then
         If (KeyAscii = vbKeySpace) Then
             UserControl_Click
         End If
@@ -599,7 +597,6 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
     mFillStyle = PropBag.ReadProperty("FillStyle", mdef_FillStyle)
     mBorderStyle = PropBag.ReadProperty("BorderStyle", mdef_BorderStyle)
     mBorderWidth = PropBag.ReadProperty("BorderWidth", mdef_BorderWidth)
-    mClickable = PropBag.ReadProperty("Clickable", mdef_Clickable)
     mQuality = PropBag.ReadProperty("Quality", mdef_Quality)
     mRotationDegrees = PropBag.ReadProperty("RotationDegrees", mdef_RotationDegrees)
     mOpacity = PropBag.ReadProperty("Opacity", mdef_Opacity)
@@ -642,7 +639,6 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
     PropBag.WriteProperty "FillStyle", mFillStyle, mdef_FillStyle
     PropBag.WriteProperty "BorderStyle", mBorderStyle, mdef_BorderStyle
     PropBag.WriteProperty "BorderWidth", mBorderWidth, mdef_BorderWidth
-    PropBag.WriteProperty "Clickable", mClickable, mdef_Clickable
     PropBag.WriteProperty "Quality", mQuality, mdef_Quality
     PropBag.WriteProperty "RotationDegrees", mRotationDegrees, mdef_RotationDegrees
     PropBag.WriteProperty "Opacity", mOpacity, mdef_Opacity
@@ -811,20 +807,6 @@ Public Property Let BorderWidth(ByVal nValue As Long)
         mBorderWidth = nValue
         Me.Refresh
         PropertyChanged "BorderWidth"
-    End If
-End Property
-
-
-Public Property Get Clickable() As Boolean
-Attribute Clickable.VB_ProcData.VB_Invoke_Property = ";Comportamiento"
-    Clickable = mClickable
-End Property
-
-Public Property Let Clickable(ByVal nValue As Boolean)
-    If nValue <> mClickable Then
-        mClickable = nValue
-        Me.Refresh
-        PropertyChanged "Clickable"
     End If
 End Property
 
@@ -1075,7 +1057,7 @@ End Property
 
 Public Property Let ClickMode(ByVal nValue As SEClickModeConstants)
     If nValue <> mClickMode Then
-        If (nValue < seClickControl) Or (nValue > seClickShape) Then Err.Raise 380, TypeName(Me): Exit Property
+        If (nValue < seClickDisabled) Or (nValue > seClickControl) Then Err.Raise 380, TypeName(Me): Exit Property
         mClickMode = nValue
         PropertyChanged "ClickMode"
     End If
