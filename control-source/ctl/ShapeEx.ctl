@@ -243,6 +243,10 @@ Public Enum SESubclassingConstants
     seSCNotInIDEDesignTime = 3 ' IDE run time and compiled will use subclassing
 End Enum
 
+Public Enum SEClickModeConstants
+    seClickControl = 0
+    seClickShape = 1
+End Enum
 
 ' Property defaults
 Private Const mdef_BackColor = vbWindowBackground
@@ -265,6 +269,7 @@ Private Const mdef_MousePointer = vbDefault
 Private Const mdef_Style3D = seStyle3DNone
 Private Const mdef_Style3DEffect = seStyle3EffectAuto
 Private Const mdef_UseSubclassing = seSCNotInIDEDesignTime ' seSCYes
+Private Const mdef_ClickMode = seClickShape ' seClickControl
 
 ' Properties
 Private mBackColor  As Long
@@ -289,6 +294,7 @@ Private mStyle3D As SEStyle3DConstants
 Private mStyle3DEffect As SEStyle3DEffectConstants
 Private mUseSubclassing As SESubclassingConstants
 Private mFillTexture As StdPicture
+Private mClickMode As SEClickModeConstants
 
 Private mGdipToken As Long
 Private mContainerHwnd As Long
@@ -337,9 +343,18 @@ Private Sub UserControl_DblClick()
 End Sub
 
 Private Sub UserControl_HitTest(X As Single, Y As Single, HitResult As Integer)
+    Dim iColor As Long
+    
     If mUserMode Then
         If mClickable Then
-            HitResult = vbHitResultHit
+            If mClickMode = seClickControl Then
+                HitResult = vbHitResultHit
+            Else
+                TranslateColor UserControl.BackColor, 0, iColor
+                If UserControl.Point(X, Y) <> iColor Then
+                    HitResult = vbHitResultHit
+                End If
+            End If
         End If
     Else
         HitResult = vbHitResultHit
@@ -368,6 +383,7 @@ Private Sub UserControl_InitProperties()
     mStyle3D = mdef_Style3D
     mStyle3DEffect = mdef_Style3DEffect
     mUseSubclassing = mdef_UseSubclassing
+    mClickMode = mdef_ClickMode
     
     On Error Resume Next
     mContainerHwnd = UserControl.ContainerHwnd
@@ -573,6 +589,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
     mStyle3DEffect = PropBag.ReadProperty("Style3DEffect", mdef_Style3DEffect)
     mUseSubclassing = PropBag.ReadProperty("UseSubclassing", mdef_UseSubclassing)
     Set mFillTexture = PropBag.ReadProperty("FillTexture", Nothing)
+    mClickMode = PropBag.ReadProperty("ClickMode", mdef_ClickMode)
     
     UserControl.MousePointer = mMousePointer
     Set UserControl.MouseIcon = mMouseIcon
@@ -615,6 +632,7 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
     PropBag.WriteProperty "Style3DEffect", mStyle3DEffect, mdef_Style3DEffect
     PropBag.WriteProperty "UseSubclassing", mUseSubclassing, mdef_UseSubclassing
     PropBag.WriteProperty "FillTexture", mFillTexture, Nothing
+    PropBag.WriteProperty "ClickMode", mClickMode, mdef_ClickMode
 End Sub
 
 
@@ -1023,6 +1041,19 @@ End Property
 
 Public Property Let FillTexture(nImage As StdPicture)
     Set FillTexture = nImage
+End Property
+
+
+Public Property Get ClickMode() As SEClickModeConstants
+    ClickMode = mClickMode
+End Property
+
+Public Property Let ClickMode(ByVal nValue As SEClickModeConstants)
+    If nValue <> mClickMode Then
+        If (nValue < seClickControl) Or (nValue > seClickShape) Then Err.Raise 380, TypeName(Me): Exit Property
+        mClickMode = nValue
+        PropertyChanged "ClickMode"
+    End If
 End Property
 
 
