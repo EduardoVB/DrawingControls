@@ -1,13 +1,13 @@
 VERSION 5.00
-Object = "*\A..\control-source\DrawingCtrls.vbp"
+Object = "{D51F1494-54D9-4A31-9D8B-A14C2F184FF1}#2.0#0"; "DrwCtrl1.ocx"
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "comctl32.ocx"
 Begin VB.Form frmTest 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "ShapeEx control test"
-   ClientHeight    =   9675
-   ClientLeft      =   225
-   ClientTop       =   690
-   ClientWidth     =   16710
+   ClientHeight    =   9672
+   ClientLeft      =   228
+   ClientTop       =   696
+   ClientWidth     =   16704
    BeginProperty Font 
       Name            =   "Segoe UI"
       Size            =   9
@@ -21,8 +21,8 @@ Begin VB.Form frmTest
    LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   9675
-   ScaleWidth      =   16710
+   ScaleHeight     =   9672
+   ScaleWidth      =   16704
    Begin VB.CommandButton cmdTestLineEx 
       Caption         =   "Test LineEx control (Line replacement)"
       Height          =   852
@@ -36,7 +36,7 @@ Begin VB.Form frmTest
       Height          =   300
       Left            =   9130
       ScaleHeight     =   300
-      ScaleWidth      =   555
+      ScaleWidth      =   552
       TabIndex        =   88
       Top             =   4620
       Width           =   552
@@ -49,7 +49,7 @@ Begin VB.Form frmTest
       Top             =   4536
       Width           =   2052
    End
-   Begin VB.ComboBox cboClickable 
+   Begin VB.ComboBox cboClickMode 
       Height          =   336
       ItemData        =   "frmTest.frx":0000
       Left            =   9100
@@ -157,7 +157,7 @@ Begin VB.Form frmTest
       Caption         =   "-"
       BeginProperty Font 
          Name            =   "Tahoma"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -174,7 +174,7 @@ Begin VB.Form frmTest
       Caption         =   "+"
       BeginProperty Font 
          Name            =   "Tahoma"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -259,7 +259,7 @@ Begin VB.Form frmTest
       TabIndex        =   100
       Top             =   6300
       Width           =   2904
-      _ExtentX        =   5106
+      _ExtentX        =   5122
       _ExtentY        =   529
       _Version        =   327682
       Max             =   100
@@ -272,7 +272,7 @@ Begin VB.Form frmTest
       TabIndex        =   106
       Top             =   7136
       Width           =   2904
-      _ExtentX        =   5106
+      _ExtentX        =   5122
       _ExtentY        =   529
       _Version        =   327682
       Max             =   360
@@ -283,7 +283,7 @@ Begin VB.Form frmTest
       TabIndex        =   94
       Top             =   5400
       Width           =   2904
-      _ExtentX        =   5106
+      _ExtentX        =   5122
       _ExtentY        =   529
       _Version        =   327682
       Min             =   -100
@@ -302,14 +302,14 @@ Begin VB.Form frmTest
    End
    Begin VB.Label Label3 
       AutoSize        =   -1  'True
-      Caption         =   "Clickable:"
+      Caption         =   "ClickMode:"
       ForeColor       =   &H00C00000&
       Height          =   240
       Index           =   3
       Left            =   7404
       TabIndex        =   90
       Top             =   5040
-      Width           =   756
+      Width           =   876
    End
    Begin VB.Label Label3 
       AutoSize        =   -1  'True
@@ -347,7 +347,7 @@ Begin VB.Form frmTest
       Caption         =   "Only solid y transparent but added Texture (It needs an image in the FillTexture property)."
       BeginProperty Font 
          Name            =   "Segoe UI"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -388,7 +388,7 @@ Begin VB.Form frmTest
       TabIndex        =   81
       Top             =   3120
       Width           =   552
-      _ExtentX        =   979
+      _ExtentX        =   974
       _ExtentY        =   423
       BackStyle       =   1
       BorderColor     =   8421504
@@ -398,7 +398,7 @@ Begin VB.Form frmTest
       Caption         =   "Not available in ShapeEx because it is not supported by GDI+."
       BeginProperty Font 
          Name            =   "Segoe UI"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -428,7 +428,7 @@ Begin VB.Form frmTest
       TabIndex        =   70
       Top             =   1440
       Width           =   552
-      _ExtentX        =   979
+      _ExtentX        =   974
       _ExtentY        =   423
       BackStyle       =   1
       BorderColor     =   8421504
@@ -473,7 +473,7 @@ Begin VB.Form frmTest
       TabIndex        =   65
       Top             =   600
       Width           =   550
-      _ExtentX        =   979
+      _ExtentX        =   974
       _ExtentY        =   423
       BackStyle       =   1
       BorderColor     =   8421504
@@ -575,8 +575,8 @@ Begin VB.Form frmTest
       TabIndex        =   56
       Top             =   7800
       Width           =   552
-      _ExtentX        =   979
-      _ExtentY        =   979
+      _ExtentX        =   974
+      _ExtentY        =   974
       BorderColor     =   56
       Shape           =   29
       Shift           =   20
@@ -589,8 +589,8 @@ Begin VB.Form frmTest
       TabIndex        =   55
       Top             =   7800
       Width           =   504
-      _ExtentX        =   900
-      _ExtentY        =   979
+      _ExtentX        =   910
+      _ExtentY        =   974
       BorderColor     =   55
       Shape           =   28
    End
@@ -602,7 +602,7 @@ Begin VB.Form frmTest
       Top             =   7800
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       BorderColor     =   54
       Shape           =   27
       Shift           =   20
@@ -616,7 +616,7 @@ Begin VB.Form frmTest
       Top             =   7800
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       BorderColor     =   53
       Shape           =   26
    End
@@ -627,8 +627,8 @@ Begin VB.Form frmTest
       TabIndex        =   51
       Top             =   7800
       Width           =   396
-      _ExtentX        =   688
-      _ExtentY        =   979
+      _ExtentX        =   699
+      _ExtentY        =   974
       Shape           =   24
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -638,8 +638,8 @@ Begin VB.Form frmTest
       TabIndex        =   52
       Top             =   7800
       Width           =   396
-      _ExtentX        =   688
-      _ExtentY        =   979
+      _ExtentX        =   699
+      _ExtentY        =   974
       Shape           =   25
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -649,8 +649,8 @@ Begin VB.Form frmTest
       TabIndex        =   44
       Top             =   6504
       Width           =   400
-      _ExtentX        =   688
-      _ExtentY        =   979
+      _ExtentX        =   699
+      _ExtentY        =   974
       Shape           =   23
       ShiftPutAutomatically=   20
    End
@@ -661,8 +661,8 @@ Begin VB.Form frmTest
       TabIndex        =   43
       Top             =   6504
       Width           =   450
-      _ExtentX        =   794
-      _ExtentY        =   979
+      _ExtentX        =   804
+      _ExtentY        =   974
       Shape           =   22
       ShiftPutAutomatically=   20
    End
@@ -674,7 +674,7 @@ Begin VB.Form frmTest
       Top             =   6504
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   20
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -687,7 +687,7 @@ Begin VB.Form frmTest
       Top             =   6504
       Width           =   600
       _ExtentX        =   1058
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   21
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -700,7 +700,7 @@ Begin VB.Form frmTest
       Top             =   6504
       Width           =   600
       _ExtentX        =   1058
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   19
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -711,7 +711,7 @@ Begin VB.Form frmTest
       Top             =   6504
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   18
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -724,7 +724,7 @@ Begin VB.Form frmTest
       Top             =   5208
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   14
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -737,7 +737,7 @@ Begin VB.Form frmTest
       Top             =   5208
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   15
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -748,7 +748,7 @@ Begin VB.Form frmTest
       Top             =   5208
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   16
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -759,7 +759,7 @@ Begin VB.Form frmTest
       Top             =   5208
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   17
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -772,7 +772,7 @@ Begin VB.Form frmTest
       Top             =   2556
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   1005
+      _ExtentY        =   995
       Shape           =   5
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -783,7 +783,7 @@ Begin VB.Form frmTest
       Top             =   2556
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   4
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -794,7 +794,7 @@ Begin VB.Form frmTest
       Top             =   2556
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   1005
+      _ExtentY        =   995
       Shape           =   3
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -805,7 +805,7 @@ Begin VB.Form frmTest
       Top             =   2556
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   2
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -816,7 +816,7 @@ Begin VB.Form frmTest
       Top             =   2556
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   1
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -827,7 +827,7 @@ Begin VB.Form frmTest
       Top             =   2556
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       BackColor       =   16744576
       BackStyle       =   1
       FillColor       =   12648447
@@ -840,7 +840,7 @@ Begin VB.Form frmTest
       Top             =   3912
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   8
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -853,7 +853,7 @@ Begin VB.Form frmTest
       Top             =   3912
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   7
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -863,8 +863,8 @@ Begin VB.Form frmTest
       TabIndex        =   27
       Top             =   5208
       Width           =   800
-      _ExtentX        =   1429
-      _ExtentY        =   979
+      _ExtentX        =   1439
+      _ExtentY        =   974
       Shape           =   12
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -877,7 +877,7 @@ Begin VB.Form frmTest
       Top             =   5208
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   13
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -890,7 +890,7 @@ Begin VB.Form frmTest
       Top             =   3912
       Width           =   600
       _ExtentX        =   1058
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   11
       Shift           =   20
       ShiftPutAutomatically=   20
@@ -903,7 +903,7 @@ Begin VB.Form frmTest
       Top             =   3912
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   10
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -914,7 +914,7 @@ Begin VB.Form frmTest
       Top             =   3912
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   6
    End
    Begin DrawingCtrls.ShapeEx ShapeEx1 
@@ -925,7 +925,7 @@ Begin VB.Form frmTest
       Top             =   3912
       Width           =   900
       _ExtentX        =   1588
-      _ExtentY        =   979
+      _ExtentY        =   974
       Shape           =   9
    End
    Begin VB.Label Label3 
@@ -965,7 +965,7 @@ Begin VB.Form frmTest
       Caption         =   "It applies to some shapes."
       BeginProperty Font 
          Name            =   "Segoe UI"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -1157,7 +1157,7 @@ Begin VB.Form frmTest
       Caption         =   "Additional value used by these shapes: regular polygon, star and jagged star."
       BeginProperty Font 
          Name            =   "Segoe UI"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -1175,7 +1175,7 @@ Begin VB.Form frmTest
       Caption         =   $"frmTest.frx":0024
       BeginProperty Font 
          Name            =   "Segoe UI"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -1204,7 +1204,7 @@ Begin VB.Form frmTest
       Caption         =   "High is antialiased, Low is like the old Shape control. The default is High."
       BeginProperty Font 
          Name            =   "Segoe UI"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -1257,10 +1257,10 @@ Begin VB.Form frmTest
       Width           =   648
    End
    Begin VB.Label Label1 
-      Caption         =   "It determines if it will produce mouse events."
+      Caption         =   "It determines if it will produce mouse events and how."
       BeginProperty Font 
          Name            =   "Segoe UI"
-         Size            =   7.5
+         Size            =   7.8
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -1544,7 +1544,15 @@ Private Sub cboClickable_Click()
     Dim c As Long
     
     For c = ShapeEx1.LBound To ShapeEx1.UBound
-        ShapeEx1(c).Clickable = cboClickable.ListIndex = 1
+        ShapeEx1(c).ClickMode = cboClickMode.ListIndex
+    Next
+End Sub
+
+Private Sub cboClickMode_Click()
+    Dim c As Long
+    
+    For c = ShapeEx1.LBound To ShapeEx1.UBound
+        ShapeEx1(c).ClickMode = cboClickMode.ListIndex
     Next
 End Sub
 
@@ -1717,7 +1725,7 @@ Private Sub Form_Load()
     cboFillStyle.ListIndex = ShapeEx1(0).FillStyle
     cboFlipped.ListIndex = ShapeEx1(0).Flipped
     cboQuality.ListIndex = ShapeEx1(0).Quality
-    cboClickable.ListIndex = CLng(ShapeEx1(0).Clickable) * -1
+    cboClickMode.ListIndex = ShapeEx1(0).ClickMode
 End Sub
 
 Private Sub LoadCombos()
@@ -1769,9 +1777,10 @@ Private Sub LoadCombos()
     cboQuality.AddItem "seQualityLow"
     cboQuality.AddItem "seQualityHigh"
     
-    cboClickable.Clear
-    cboClickable.AddItem "False"
-    cboClickable.AddItem "True"
+    cboClickMode.Clear
+    cboClickMode.AddItem "seClickDisabled"
+    cboClickMode.AddItem "seClickShape"
+    cboClickMode.AddItem "seClickControl"
 End Sub
 
 Private Sub picFillTexture_DblClick()
@@ -1779,7 +1788,7 @@ Private Sub picFillTexture_DblClick()
 End Sub
 
 Private Sub ShapeEx1_Click(Index As Integer)
-    MsgBox "Control is clickable"
+    MsgBox "Clicked"
 End Sub
 
 Private Sub shpBackColor_Click()
